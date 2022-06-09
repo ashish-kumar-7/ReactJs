@@ -1,7 +1,7 @@
 import { useState } from "react";
 import React from "react";
 
-export default function TextArea() {
+export default function TextArea(props) {
     const [text, setText] = useState("");
 
     const handleChange = function(event){
@@ -30,8 +30,8 @@ export default function TextArea() {
 
   return (
     <>
-      <div className="container">
-          <h2 className="my-3">Enter the text to analyze below</h2>
+      <div className="container" style={{color: props.theme==="dark" ? "light" : "black"}}>
+          <h2 className={`my-3 text-${props.theme==="light" ? "dark" : "light"}`}>Enter the text to analyze below</h2>
       <div className="form">
         <textarea
           className="form-control mb-3"
@@ -39,6 +39,7 @@ export default function TextArea() {
           rows="8"
           value={text}
           onChange={handleChange}
+          style={{backgroundColor: props.theme==="light" ? "white" : "grey", color: props.theme==="light" ? "black" : "white"}}
         ></textarea>
         <label htmlFor="floatingTextarea"></label>
       </div>
@@ -47,11 +48,11 @@ export default function TextArea() {
       <button type="button" className="btn btn-primary mx-1" onClick={handleClear}>Clear Text</button>
       <button type="button" className="btn btn-primary mx-1" onClick={handleCopy}>Copy Text</button>
       </div>
-      <div className="container my-4">
+      <div className={`container my-4 text-${props.theme==="light" ? "dark" : "light"}`}>
           <h4>Your Text Summary</h4>
           <p> {text.split(" ").length} word and {text.length} characters</p>
           <h5>Preview</h5>
-          <p>{text}</p>
+          <p>{text.length===0 ? 'Enter some text to preview' : text}</p>
       </div>
     </>
   );

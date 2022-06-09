@@ -2,12 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 
 export default function Navbar(props) {
-
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-dark">
-        <div className="container-fluid ">
-          <a className="navbar-brand text-light" href="/">
+      <nav className={`navbar navbar-expand-lg bg-${props.theme}`}>
+        <div className="container-fluid">
+          <a className={`navbar-brand text-${props.theme==="light" ? "dark" : "light"}`} href="/">
             {props.title}
           </a>
           <button
@@ -25,7 +24,7 @@ export default function Navbar(props) {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <a
-                  className="nav-link active text-white"
+                  className={`nav-link active text-${props.theme==="light" ? "dark" : "light"}`}
                   aria-current="page"
                   href="/"
                 >
@@ -33,12 +32,26 @@ export default function Navbar(props) {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-white" href="/">
+                <a className={`nav-link text-${props.theme==="light" ? "dark" : "light"}`} href="/">
                   About
                 </a>
               </li>
             </ul>
           </div>
+        </div>
+        <div className="container justify-content-end">
+        <div className="form-check form-switch">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            role="switch"
+            id="flexSwitchCheckDefault"
+            onClick={props.toggle}
+          />
+          <label className={`form-check-label text-${props.theme==="light" ? "dark" : "light"}`} htmlFor="flexSwitchCheckDefault">
+            Enable {props.theme==="light" ? "Dark" : "Light"} Mode
+          </label>
+        </div>
         </div>
       </nav>
     </>
