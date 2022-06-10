@@ -10,17 +10,21 @@ export default function TextArea(props) {
 
     const handleUpper = function(){
         setText(text.toUpperCase());
+        props.display("success","Text is converted to Upper-Case");
     }
     const handleLower = function(){
         setText(text.toLowerCase());
+        props.display("success","Text is converted to Lower-Case");
     }
     const handleClear = function(){
         setText("");
+        props.display("success","Text is erased.");
     }
     const handleCopy = function(){
       var text=document.getElementById("myBox");
       text.select();
       navigator.clipboard.writeText(text.value);
+      props.display("success","Text is copied to clipboard");
     }
 
     // const handleExtraSpaces = () => {
@@ -28,10 +32,21 @@ export default function TextArea(props) {
     //   setText(newText.join(" "));
     // }
 
+    const countWord = function(word){
+      word+=" ";
+      var count=0,i;
+      for(i=1;i<word.length;i++){
+        if(word[i]===" " && word[i+1]!==" "){
+          count++;
+        }
+      }
+      return count;
+    }
+
   return (
     <>
-      <div className="container" style={{color: props.theme==="dark" ? "light" : "black"}}>
-          <h2 className={`my-3 text-${props.theme==="light" ? "dark" : "light"}`}>Enter the text to analyze below</h2>
+      <div className="container" style={{color: props.theme==="dark" ? "white" : "black"}}>
+          <h2 className="my-3">Enter the text to analyze below</h2>
       <div className="form">
         <textarea
           className="form-control mb-3"
@@ -50,7 +65,7 @@ export default function TextArea(props) {
       </div>
       <div className={`container my-4 text-${props.theme==="light" ? "dark" : "light"}`}>
           <h4>Your Text Summary</h4>
-          <p> {text.split(" ").length} word and {text.length} characters</p>
+          <p> {countWord(text)} word and {text.length} characters</p>
           <h5>Preview</h5>
           <p>{text.length===0 ? 'Enter some text to preview' : text}</p>
       </div>
