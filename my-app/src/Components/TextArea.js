@@ -21,9 +21,7 @@ export default function TextArea(props) {
         props.display("success","Text is erased.");
     }
     const handleCopy = function(){
-      var text=document.getElementById("myBox");
-      text.select();
-      navigator.clipboard.writeText(text.value);
+      navigator.clipboard.writeText(text);
       props.display("success","Text is copied to clipboard");
     }
 
@@ -32,21 +30,11 @@ export default function TextArea(props) {
     //   setText(newText.join(" "));
     // }
 
-    const countWord = function(word){
-      word+=" ";
-      var count=0,i;
-      for(i=1;i<word.length;i++){
-        if(word[i]===" " && word[i+1]!==" "){
-          count++;
-        }
-      }
-      return count;
-    }
 
   return (
     <>
       <div className="container" style={{color: props.theme==="dark" ? "white" : "black"}}>
-          <h2 className="my-3">Enter the text to analyze below</h2>
+          <h2 className="my-3 mb-3">Try TextUtils - Word Counter |  Character Counter </h2>
       <div className="form">
         <textarea
           className="form-control mb-3"
@@ -54,20 +42,22 @@ export default function TextArea(props) {
           rows="8"
           value={text}
           onChange={handleChange}
-          style={{backgroundColor: props.theme==="light" ? "white" : "grey", color: props.theme==="light" ? "black" : "white"}}
+          style={{backgroundColor: props.theme==="light" ? "white" : "#3a8095", color: props.theme==="light" ? "black" : "white"}}
         ></textarea>
         <label htmlFor="floatingTextarea"></label>
       </div>
-      <button type="button" className="btn btn-primary mx-1" onClick={handleUpper}>Convert to UpperCase</button>
-      <button type="button" className="btn btn-primary mx-1" onClick={handleLower}>Convert to LowerCase</button>
-      <button type="button" className="btn btn-primary mx-1" onClick={handleClear}>Clear Text</button>
-      <button type="button" className="btn btn-primary mx-1" onClick={handleCopy}>Copy Text</button>
+      <button disabled={text==="" ? true:false} type="button" className="btn btn-primary mx-1 my-1" onClick={handleUpper}>Convert to UpperCase</button>
+      <button disabled={text==="" ? true:false} type="button" className="btn btn-primary mx-1 my-1" onClick={handleLower}>Convert to LowerCase</button>
+      <button disabled={text==="" ? true:false} type="button" className="btn btn-primary mx-1 my-1" onClick={handleClear}>Clear Text</button>
+      <button disabled={text==="" ? true:false} type="button" className="btn btn-primary mx-1 my-1" onClick={handleCopy}>Copy Text</button>
       </div>
       <div className={`container my-4 text-${props.theme==="light" ? "dark" : "light"}`}>
           <h4>Your Text Summary</h4>
-          <p> {countWord(text)} word and {text.length} characters</p>
+          <p> {text.split(/\s+/).filter((sen) => {
+            return sen!==""
+          }).length} word and {text.length} characters</p>
           <h5>Preview</h5>
-          <p>{text.length===0 ? 'Enter some text to preview' : text}</p>
+          <p>{text.length===0 ? 'Nothing to preview' : text}</p>
       </div>
     </>
   );

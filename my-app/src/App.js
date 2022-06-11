@@ -1,10 +1,10 @@
 import "./App.css";
 import Navbar from "./Components/Navbar";
 import TextArea from "./Components/TextArea";
-import About from "./Components/About";
+// import About from "./Components/About";
 import Alert from "./Components/Alert";
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+// import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 function App() {
   const [mode, setMode] = useState("light");
@@ -32,16 +32,22 @@ function App() {
     }
   };
   return (
-    <Router>
+    // <Router>
+    //   <>
+    //   <Navbar title="TextUtils" theme={mode} toggle={toggleFunction}/>
+    //   <Alert alert={alert}/>
+    //   <Routes>
+    //       <Route exact path="/about" element={<About theme={mode} />} />
+    //       <Route exact path="/" element={<TextArea theme={mode} display={showAlert}/>} />
+    //     </Routes>
+    //   </>
+    // </Router>
+
       <>
       <Navbar title="TextUtils" theme={mode} toggle={toggleFunction}/>
       <Alert alert={alert}/>
-      <Routes>
-          <Route exact path="/about" element={<About theme={mode} />} />
-          <Route exact path="/" element={<TextArea theme={mode} display={showAlert}/>} />
-        </Routes>
+      <TextArea theme={mode} display={showAlert}/>
       </>
-    </Router>
   );
 }
 
